@@ -1,0 +1,19 @@
+{
+  "name": "simple-music-website",
+  "version": "1.0.0",
+  "description": "Website comsuming the simple-music-api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CastelJeremy/simple-music-website.git"
+  },
+  "author": "Jeremy Castel",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/CastelJeremy/simple-music-website/issues"
+  },
+  "homepage": "https://github.com/CastelJeremy/simple-music-website#readme"
+}
