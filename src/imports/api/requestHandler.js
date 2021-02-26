@@ -1,11 +1,11 @@
 async function request(uri, options) {
     const { method, token, data } = options;
 
-    return fetch('http://api.jeremycastel.net:10000/' + uri, {
+    return fetch('host' + uri, {
         method: method,
         headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            Authorization: token ? 'Bearer ' + token : null,
         },
         body: JSON.stringify(data),
     });
