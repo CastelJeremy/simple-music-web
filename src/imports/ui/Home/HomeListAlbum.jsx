@@ -1,5 +1,13 @@
 import React from 'react';
 import HomeItemAlbum from './HomeItemAlbum.jsx';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = (theme) => ({
+    root: {
+        padding: theme.spacing(1),
+        width: '100%',
+    },
+});
 
 class HomeListAlbum extends React.Component {
     constructor(props) {
@@ -8,7 +16,7 @@ class HomeListAlbum extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={this.props.classes.root}>
                 {this.props.albums.map((album) => (
                     <HomeItemAlbum
                         onClick={this.props.onClick}
@@ -21,4 +29,4 @@ class HomeListAlbum extends React.Component {
     }
 }
 
-export default HomeListAlbum;
+export default withStyles(styles)(HomeListAlbum);

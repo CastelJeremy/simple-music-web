@@ -1,7 +1,7 @@
 import React from 'react';
 import { navigate, Router } from '@reach/router';
 import { ThemeProvider } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles } from '@material-ui/core/styles';
 
 import Login from './Login/Login.jsx';
 import Home from './Home/Home.jsx';
@@ -14,6 +14,14 @@ const darkTheme = createMuiTheme({
             main: '#90caf9',
             dark: '#648dae',
         },
+    },
+});
+
+const styles = (theme) => ({
+    root: {
+        minHeight: `${window.innerHeight}px`,
+        width: '100%',
+        display: 'flex',
     },
 });
 
@@ -60,7 +68,7 @@ class App extends React.Component {
     render() {
         return (
             <ThemeProvider theme={darkTheme}>
-                <Router>
+                <Router className={this.props.classes.root}>
                     <Login path="/login" handleLogin={this.handleLogin} />
                     <Home
                         path="/"
@@ -73,4 +81,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default withStyles(styles)(App);
