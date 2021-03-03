@@ -16,7 +16,7 @@ class Nav extends React.Component {
 
     render() {
         return (
-            <AppBar position="static">
+            <AppBar position="static" color="secondary">
                 <Toolbar>
                     <Typography
                         variant="h6"
