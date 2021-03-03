@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 import Login from './Login/Login.jsx';
+import Home from './Home/Home.jsx';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -25,11 +26,18 @@ class App extends React.Component {
         };
 
         this.handleLogin = this.handleLogin.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     handleLogin(user) {
         this.setState({
             user: user,
+        });
+    }
+
+    handleLogout() {
+        this.setState({
+            user: null,
         });
     }
 
@@ -54,6 +62,11 @@ class App extends React.Component {
             <ThemeProvider theme={darkTheme}>
                 <Router>
                     <Login path="/login" handleLogin={this.handleLogin} />
+                    <Home
+                        path="/"
+                        user={this.state.user}
+                        handleLogout={this.handleLogout}
+                    />
                 </Router>
             </ThemeProvider>
         );
