@@ -4,13 +4,21 @@ class UserDAO {
     constructor() {}
 
     async login(username, password) {
-        return request('login', {
+        const response = await request('login', {
             method: 'POST',
             data: {
                 username: username,
                 password: password,
             },
         });
+
+        const data = await response.json();
+
+        if (data.statusCode) {
+            throw data;
+        } else {
+            return data['access-token'];
+        }
     }
 }
 

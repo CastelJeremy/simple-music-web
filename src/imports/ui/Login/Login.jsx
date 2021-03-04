@@ -86,27 +86,23 @@ class Login extends React.Component {
             const userDao = new UserDAO();
             userDao
                 .login(this.state.username, this.state.password)
-                .then((response) => response.json())
-                .then((data) => {
+                .then((token) => {
                     this.setState({
                         loading: false,
                     });
 
-                    if (data.statusCode && data.statusCode === 400) {
+                    this.props.handleLogin(
+                        new User(this.state.username, token)
+                    );
+                })
+                .catch((err) => {
+                    if (err.statusCode && err.statusCode === 400) {
                         this.setState({
                             usernameError: 'Incorrect username.',
                             passwordError: 'Incorrect password.',
                         });
-                    } else if (data['access-token']) {
-                        this.props.handleLogin(
-                            new User(this.state.username, data['access-token'])
-                        );
-                    } else {
-                        throw data;
                     }
-                })
-                .catch((error) => {
-                    console.error(error);
+
                     this.setState({ loading: false });
                 });
         }
