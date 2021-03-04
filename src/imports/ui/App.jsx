@@ -33,6 +33,7 @@ const styles = (theme) => ({
         flexDirection: 'column',
     },
     body: {
+        marginTop: theme.spacing(8),
         flexGrow: '1',
         display: 'flex',
     },

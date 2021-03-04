@@ -29,7 +29,7 @@ class Nav extends React.Component {
 
     render() {
         return (
-            <AppBar position="static" color="secondary">
+            <AppBar position="fixed" color="secondary">
                 <Toolbar className={this.props.classes.root}>
                     {!this.props.album ? (
                         <LibraryMusicIcon

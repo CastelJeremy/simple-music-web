@@ -33,6 +33,7 @@ class SongsItem extends React.Component {
                     <Typography variant="h6">
                         {this.props.song.getName()}
                     </Typography>
+                    
                     <Typography variant="subtitle2">
                         {this.props.song.getLengthFormated()}
                     </Typography>
