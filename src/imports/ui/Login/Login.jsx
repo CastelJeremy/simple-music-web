@@ -88,6 +88,10 @@ class Login extends React.Component {
                 .login(this.state.username, this.state.password)
                 .then((response) => response.json())
                 .then((data) => {
+                    this.setState({
+                        loading: false,
+                    });
+
                     if (data.statusCode && data.statusCode === 400) {
                         this.setState({
                             usernameError: 'Incorrect username.',
@@ -100,10 +104,6 @@ class Login extends React.Component {
                     } else {
                         throw data;
                     }
-
-                    this.setState({
-                        loading: false,
-                    });
                 })
                 .catch((error) => {
                     console.error(error);

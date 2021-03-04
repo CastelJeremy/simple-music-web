@@ -1,5 +1,4 @@
 import React from 'react';
-import { navigate, Router } from '@reach/router';
 import { ThemeProvider } from '@material-ui/core';
 import { createMuiTheme, withStyles } from '@material-ui/core/styles';
 
@@ -59,22 +58,6 @@ class App extends React.Component {
         });
     }
 
-    componentDidMount() {
-        if (!this.state.user) {
-            navigate('/login');
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.user !== prevState.user) {
-            if (!this.state.user) {
-                navigate('/login');
-            } else {
-                navigate('/');
-            }
-        }
-    }
-
     render() {
         return (
             <ThemeProvider theme={darkTheme}>
@@ -84,14 +67,16 @@ class App extends React.Component {
                         handleLogout={this.handleLogout}
                     />
 
-                    <Router className={this.props.classes.body}>
-                        <Login path="/login" handleLogin={this.handleLogin} />
-                        <Home
-                            path="/"
-                            user={this.state.user}
-                            handleLogout={this.handleLogout}
-                        />
-                    </Router>
+                    <div className={this.props.classes.body}>
+                        {this.state.user ? (
+                            <Home
+                                user={this.state.user}
+                                handleLogout={this.handleLogout}
+                            />
+                        ) : (
+                            <Login handleLogin={this.handleLogin} />
+                        )}
+                    </div>
                 </div>
             </ThemeProvider>
         );
