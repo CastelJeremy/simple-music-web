@@ -71,6 +71,7 @@ class App extends React.Component {
     handleAlbumClick(album) {
         this.setState({
             album: album,
+            songs: [],
         });
     }
 
@@ -82,22 +83,24 @@ class App extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.user !== prevState.user) {
-            const albumDao = new AlbumDAO();
+            if (this.state.user) {
+                const albumDao = new AlbumDAO();
 
-            albumDao
-                .getAll(this.state.user.getToken())
-                .then((albums) => {
-                    this.setState({
-                        albums: albums,
-                    });
-                })
-                .catch((err) => {
-                    if (err.statusCode) {
-                        if (err.statusCode === 401) {
-                            this.handleLogout();
+                albumDao
+                    .getAll(this.state.user.getToken())
+                    .then((albums) => {
+                        this.setState({
+                            albums: albums,
+                        });
+                    })
+                    .catch((err) => {
+                        if (err.statusCode) {
+                            if (err.statusCode === 401) {
+                                this.handleLogout();
+                            }
                         }
-                    }
-                });
+                    });
+            }
         }
 
         if (this.state.album !== prevState.album) {
@@ -129,6 +132,8 @@ class App extends React.Component {
                     <Nav
                         user={this.state.user}
                         handleLogout={this.handleLogout}
+                        album={this.state.album}
+                        back={() => this.handleAlbumClick(null)}
                     />
 
                     <div className={this.props.classes.body}>
