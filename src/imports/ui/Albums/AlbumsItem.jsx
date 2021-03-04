@@ -18,7 +18,7 @@ const styles = (theme) => ({
     },
 });
 
-class HomeItemAlbum extends React.Component {
+class AlbumsItem extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -42,4 +42,4 @@ class HomeItemAlbum extends React.Component {
     }
 }
 
-export default withStyles(styles)(HomeItemAlbum);
+export default withStyles(styles)(AlbumsItem);

@@ -4,7 +4,11 @@ import { createMuiTheme, withStyles } from '@material-ui/core/styles';
 
 import Nav from './components/Nav.jsx';
 import Login from './Login/Login.jsx';
-import Home from './Home/Home.jsx';
+import AlbumsList from './Albums/AlbumsList.jsx';
+import SongsList from './Songs/SongsList.jsx';
+
+import AlbumDAO from '../api/AlbumDAO.js';
+import SongDAO from '../api/SongDAO.js';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -40,10 +44,16 @@ class App extends React.Component {
 
         this.state = {
             user: null,
+            albums: [],
+            songs: [],
+            album: null,
+            song: null,
         };
 
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.handleAlbumClick = this.handleAlbumClick.bind(this);
+        this.handleSongClick = this.handleSongClick.bind(this);
     }
 
     handleLogin(user) {
@@ -58,6 +68,60 @@ class App extends React.Component {
         });
     }
 
+    handleAlbumClick(album) {
+        this.setState({
+            album: album,
+        });
+    }
+
+    handleSongClick(song) {
+        this.setState({
+            song: song,
+        });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.user !== prevState.user) {
+            const albumDao = new AlbumDAO();
+
+            albumDao
+                .getAll(this.state.user.getToken())
+                .then((albums) => {
+                    this.setState({
+                        albums: albums,
+                    });
+                })
+                .catch((err) => {
+                    if (err.statusCode) {
+                        if (err.statusCode === 401) {
+                            this.handleLogout();
+                        }
+                    }
+                });
+        }
+
+        if (this.state.album !== prevState.album) {
+            if (this.state.user && this.state.album) {
+                const songDao = new SongDAO();
+
+                songDao
+                    .getAllByAlbum(this.state.user.getToken(), this.state.album)
+                    .then((songs) => {
+                        this.setState({
+                            songs: songs,
+                        });
+                    })
+                    .catch((err) => {
+                        if (err.statusCode) {
+                            if (err.statusCode === 401) {
+                                this.handleLogout();
+                            }
+                        }
+                    });
+            }
+        }
+    }
+
     render() {
         return (
             <ThemeProvider theme={darkTheme}>
@@ -69,10 +133,18 @@ class App extends React.Component {
 
                     <div className={this.props.classes.body}>
                         {this.state.user ? (
-                            <Home
-                                user={this.state.user}
-                                handleLogout={this.handleLogout}
-                            />
+                            this.state.album ? (
+                                <SongsList
+                                    onClick={this.handleSongClick}
+                                    album={this.state.album}
+                                    songs={this.state.songs}
+                                />
+                            ) : (
+                                <AlbumsList
+                                    onClick={this.handleAlbumClick}
+                                    albums={this.state.albums}
+                                />
+                            )
                         ) : (
                             <Login handleLogin={this.handleLogin} />
                         )}

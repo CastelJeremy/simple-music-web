@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeItemAlbum from './HomeItemAlbum.jsx';
+import SongsItem from './SongsItem.jsx';
 import { withStyles } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 
@@ -15,7 +15,7 @@ const styles = (theme) => ({
     },
 });
 
-class HomeListAlbum extends React.Component {
+class SongsList extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -24,14 +24,16 @@ class HomeListAlbum extends React.Component {
         return (
             <div className={this.props.classes.root}>
                 <Paper className={this.props.classes.title}>
-                    <Typography variant="h5">Albums</Typography>
+                    <Typography variant="h5">
+                        {this.props.album.getName()}
+                    </Typography>
                 </Paper>
 
-                {this.props.albums.map((album) => (
-                    <HomeItemAlbum
+                {this.props.songs.map((song) => (
+                    <SongsItem
                         onClick={this.props.onClick}
-                        album={album}
-                        key={album.getId()}
+                        song={song}
+                        key={song.getId()}
                     />
                 ))}
             </div>
@@ -39,4 +41,4 @@ class HomeListAlbum extends React.Component {
     }
 }
 
-export default withStyles(styles)(HomeListAlbum);
+export default withStyles(styles)(SongsList);
