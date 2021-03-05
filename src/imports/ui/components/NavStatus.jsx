@@ -74,10 +74,7 @@ class NavStatus extends React.Component {
                         ) : (
                             <IconButton
                                 onClick={(event) =>
-                                    this.handleOpen(
-                                        event,
-                                        'Service Down'
-                                    )
+                                    this.handleOpen(event, 'Service Down')
                                 }
                             >
                                 <SignalCellularConnectedNoInternet0BarIcon />
@@ -90,9 +87,11 @@ class NavStatus extends React.Component {
                                 vertical: 'bottom',
                                 horizontal: 'right',
                             }}
+                            disableRestoreFocus={true}
                             onClose={this.handleClose}
                             open={Boolean(this.state.popoverText)}
                             transformOrigin={{
+                                vertical: 'top',
                                 horizontal: 'right',
                             }}
                         >
