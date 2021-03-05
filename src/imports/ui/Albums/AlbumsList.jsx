@@ -1,11 +1,12 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import AlbumsItem from './AlbumsItem.jsx';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+import AlbumsListItem from './AlbumsListItem.jsx';
 
 const styles = (theme) => ({
     root: {
+        marginTop: theme.spacing(8),
         padding: theme.spacing(1),
-        width: '100%',
     },
 });
 
@@ -18,8 +19,7 @@ class AlbumsList extends React.Component {
         return (
             <div className={this.props.classes.root}>
                 {this.props.albums.map((album) => (
-                    <AlbumsItem
-                        onClick={this.props.onClick}
+                    <AlbumsListItem
                         album={album}
                         key={album.getId()}
                     />

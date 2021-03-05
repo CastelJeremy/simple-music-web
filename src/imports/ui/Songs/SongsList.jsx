@@ -1,11 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import SongsItem from './SongsItem.jsx';
+import SongsListItem from './SongsListItem.jsx';
 
 const styles = (theme) => ({
     root: {
+        marginTop: theme.spacing(8),
         padding: theme.spacing(1),
-        width: '100%',
     },
 });
 
@@ -18,7 +18,7 @@ class SongsList extends React.Component {
         return (
             <div className={this.props.classes.root}>
                 {this.props.songs.map((song) => (
-                    <SongsItem
+                    <SongsListItem
                         onClick={this.props.onClick}
                         song={song}
                         key={song.getId()}

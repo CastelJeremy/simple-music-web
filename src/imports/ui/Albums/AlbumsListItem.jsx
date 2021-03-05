@@ -5,6 +5,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
+import { navigate } from '@reach/router';
 
 const styles = (theme) => ({
     fill: {
@@ -18,7 +19,7 @@ const styles = (theme) => ({
     },
 });
 
-class SongsItem extends React.Component {
+class AlbumsListItem extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -27,15 +28,14 @@ class SongsItem extends React.Component {
         return (
             <ButtonBase
                 className={this.props.classes.fill}
-                onClick={() => this.props.onClick(this.props.song)}
+                onClick={() => navigate(`/albums/${this.props.album.getId()}`)}
             >
                 <Paper className={this.props.classes.container}>
                     <Typography variant="h6">
-                        {this.props.song.getName()}
+                        {this.props.album.getName()}
                     </Typography>
-                    
                     <Typography variant="subtitle2">
-                        {this.props.song.getLengthFormated()}
+                        {this.props.album.getAuthor()}
                     </Typography>
                 </Paper>
             </ButtonBase>
@@ -43,4 +43,4 @@ class SongsItem extends React.Component {
     }
 }
 
-export default withStyles(styles)(SongsItem);
+export default withStyles(styles)(AlbumsListItem);

@@ -26,6 +26,21 @@ class AlbumDAO {
             return albums;
         }
     }
+
+    async get(token, albumId) {
+        const response = await request(`albums/${albumId}`, {
+            method: 'GET',
+            token: token,
+        });
+
+        const data = await response.json();
+
+        if (data.statusCode) {
+            throw data;
+        } else {
+            return new Album(data.id, data.name, data.author);
+        }
+    }
 }
 
 export default AlbumDAO;
