@@ -49,7 +49,7 @@ class NavStatus extends React.Component {
 
     async componentDidMount() {
         this.setState({
-            serverStatus: false,
+            serverStatus: await ping(),
         });
     }
 
