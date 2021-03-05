@@ -11,4 +11,14 @@ async function request(uri, options) {
     });
 }
 
-export { request };
+async function ping() {
+    try {
+        const response = await request('albums', { method: 'GET' });
+
+        return response.status === 401;
+    } catch (err) {
+        return false;
+    }
+}
+
+export { request, ping };

@@ -1,9 +1,11 @@
 import React from 'react';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { withStyles } from '@material-ui/core/styles';
+
+import NavStatus from './NavStatus.jsx';
 
 const styles = (theme) => ({
     root: {
@@ -52,13 +54,16 @@ class Nav extends React.Component {
                             ? 'SimpleMusic'
                             : this.props.album.getName()}
                     </Typography>
-                    {this.props.user && (
+
+                    {this.props.user ? (
                         <IconButton
                             color="inherit"
                             onClick={() => this.props.handleLogout()}
                         >
                             <ExitToAppIcon />
                         </IconButton>
+                    ) : (
+                        <NavStatus />
                     )}
                 </Toolbar>
             </AppBar>
