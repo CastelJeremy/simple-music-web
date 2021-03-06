@@ -29,10 +29,10 @@ class Song {
         }
     }
 
-    toobject() {
+    toObject() {
         return {
             id: this._id,
-            album: this._album,
+            album: this._album.toObject(),
             name: this._name,
             length: this._length,
         };

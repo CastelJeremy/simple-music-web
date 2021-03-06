@@ -11,6 +11,10 @@ const styles = (theme) => ({
         marginBottom: theme.spacing(1),
         padding: theme.spacing(1, 2),
         textAlign: 'left',
+        display: 'flex',
+    },
+    content: {
+        flexGrow: 1,
     },
 });
 
@@ -22,13 +26,23 @@ class SongsListItem extends React.Component {
     render() {
         return (
             <Paper className={this.props.classes.container}>
-                <Typography variant="h6">
-                    {this.props.song.getName()}
-                </Typography>
+                <div className={this.props.classes.content}>
+                    <Typography variant="h6">
+                        {this.props.song.getName()}
+                    </Typography>
 
-                <Typography variant="subtitle2">
-                    {this.props.song.getLengthFormated()}
-                </Typography>
+                    <Typography variant="subtitle2">
+                        {this.props.song.getLengthFormated()}
+                    </Typography>
+                </div>
+
+                <div>
+                    <IconButton
+                        onClick={() => this.props.onDelete(this.props.song)}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
             </Paper>
         );
     }

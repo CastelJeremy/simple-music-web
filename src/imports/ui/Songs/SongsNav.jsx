@@ -1,8 +1,17 @@
 import React from 'react';
-import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
+import {
+    AppBar,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    Popover,
+    Toolbar,
+    Typography,
+} from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { navigate } from '@reach/router';
 
 const styles = (theme) => ({
@@ -20,6 +29,27 @@ const styles = (theme) => ({
 class SongsNav extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            open: false,
+            anchor: null,
+        };
+
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleOpen(event) {
+        this.setState({
+            open: true,
+            anchor: event.currentTarget,
+        });
+    }
+
+    handleClose() {
+        this.setState({
+            open: false,
+        });
     }
 
     render() {
@@ -44,9 +74,40 @@ class SongsNav extends React.Component {
                         <div className={this.props.classes.title}></div>
                     )}
 
-                    <IconButton onClick={this.props.onLogout}>
-                        <ExitToAppIcon />
+                    <IconButton onClick={this.handleOpen}>
+                        <MoreVertIcon />
                     </IconButton>
+
+                    <Popover
+                        anchorEl={this.state.anchor}
+                        disableRestoreFocus={true}
+                        onClose={this.handleClose}
+                        open={this.state.open}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                    >
+                        <List>
+                            <ListItem
+                                button
+                                onClick={() => {
+                                    this.handleClose();
+                                    this.props.onCreate();
+                                }}
+                            >
+                                <ListItemText>Add a Song</ListItemText>
+                            </ListItem>
+
+                            <ListItem button onClick={this.props.onLogout}>
+                                <ListItemText>Log Out</ListItemText>
+                            </ListItem>
+                        </List>
+                    </Popover>
                 </Toolbar>
             </AppBar>
         );
