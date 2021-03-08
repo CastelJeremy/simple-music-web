@@ -60,6 +60,27 @@ class SongDAO {
         }
     }
 
+    async put(token, song) {
+        const response = await request(`songs/${song.getId()}`, {
+            method: 'PUT',
+            token: token,
+            data: song.toObject(),
+        });
+
+        const data = await response.json();
+
+        if (data.statusCode) {
+            throw data;
+        } else {
+            return new Song(
+                data.id,
+                new Album(data.album.id, data.album.name, data.album.author),
+                data.name,
+                data.length
+            );
+        }
+    }
+
     async delete(token, songId) {
         const response = await request(`songs/${songId}`, {
             method: 'DELETE',

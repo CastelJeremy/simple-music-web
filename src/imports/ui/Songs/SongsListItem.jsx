@@ -38,6 +38,12 @@ class SongsListItem extends React.Component {
 
                 <div>
                     <IconButton
+                        onClick={() => this.props.onEdit(this.props.song)}
+                    >
+                        <EditIcon />
+                    </IconButton>
+
+                    <IconButton
                         onClick={() => this.props.onDelete(this.props.song)}
                     >
                         <DeleteIcon />

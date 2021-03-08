@@ -26,9 +26,12 @@ class SongsForm extends React.Component {
     constructor(props) {
         super(props);
 
+        const song = this.props.song;
+
         this.state = {
-            name: '',
-            length: 0,
+            id: song ? song.getId() : null,
+            name: song ? song.getName() : '',
+            length: song ? song.getLength() : 0,
             nameError: '',
             lengthError: '',
             loading: false,
@@ -80,7 +83,7 @@ class SongsForm extends React.Component {
             });
 
             const song = new Song(
-                null,
+                this.state.id,
                 this.props.album,
                 this.state.name,
                 parseInt(this.state.length)
@@ -106,8 +109,30 @@ class SongsForm extends React.Component {
                                 this.props.onLogout();
                             }
                         }
+
+                        this.props.onClose();
                     });
             } else {
+                songDao
+                    .put(this.props.user.getToken(), song)
+                    .then((song) => {
+                        this.props.refreshSongs();
+                        this.props.onClose();
+                    })
+                    .catch((err) => {
+                        if (err.statusCode) {
+                            if (err.statusCode === 400) {
+                                this.setState({
+                                    nameError: 'Invalid field.',
+                                    lengthError: 'Invalid field.',
+                                });
+                            } else if (err.statusCode === 401) {
+                                this.props.onLogout();
+                            }
+                        }
+
+                        this.props.onClose();
+                    });
             }
         }
     }
@@ -166,6 +191,8 @@ class SongsForm extends React.Component {
                     >
                         {this.state.loading ? (
                             <CircularProgress size="24.5px" />
+                        ) : this.props.song ? (
+                            'Update'
                         ) : (
                             'Add'
                         )}

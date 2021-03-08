@@ -19,6 +19,7 @@ class SongsList extends React.Component {
             <div className={this.props.classes.root}>
                 {this.props.songs.map((song) => (
                     <SongsListItem
+                        onEdit={this.props.onEdit}
                         onDelete={this.props.onDelete}
                         song={song}
                         key={song.getId()}
