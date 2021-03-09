@@ -8,14 +8,19 @@ import { withStyles } from '@material-ui/core/styles';
 import { navigate } from '@reach/router';
 
 const styles = (theme) => ({
-    fill: {
+    container: {
         marginBottom: theme.spacing(1),
-        width: '100%',
+        padding: theme.spacing(1, 2),
+        display: 'flex',
+    },
+    content: {
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
         textAlign: 'left',
     },
-    container: {
+    text: {
         width: '100%',
-        padding: theme.spacing(1, 2),
     },
 });
 
@@ -26,19 +31,35 @@ class AlbumsListItem extends React.Component {
 
     render() {
         return (
-            <ButtonBase
-                className={this.props.classes.fill}
-                onClick={() => navigate(`/albums/${this.props.album.getId()}`)}
-            >
-                <Paper className={this.props.classes.container}>
-                    <Typography variant="h6">
+            <Paper className={this.props.classes.container}>
+                <ButtonBase
+                    className={this.props.classes.content}
+                    onClick={() =>
+                        navigate(`/albums/${this.props.album.getId()}`)
+                    }
+                >
+                    <Typography
+                        variant="h6"
+                        className={this.props.classes.text}
+                    >
                         {this.props.album.getName()}
                     </Typography>
-                    <Typography variant="subtitle2">
+                    <Typography
+                        variant="subtitle2"
+                        className={this.props.classes.text}
+                    >
                         {this.props.album.getAuthor()}
                     </Typography>
-                </Paper>
-            </ButtonBase>
+                </ButtonBase>
+
+                <div>
+                    <IconButton
+                        onClick={() => this.props.onDelete(this.props.album)}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
+            </Paper>
         );
     }
 }
