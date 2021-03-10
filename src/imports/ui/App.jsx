@@ -1,6 +1,7 @@
 import React from 'react';
-import { ThemeProvider } from '@material-ui/core';
-import { createMuiTheme, withStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { navigate, Router } from '@reach/router';
 
 import Login from './Login/Login.jsx';

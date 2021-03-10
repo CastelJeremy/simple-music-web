@@ -1,19 +1,18 @@
 import React from 'react';
-import {
-    Button,
-    CircularProgress,
-    FormControl,
-    FormHelperText,
-    Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput,
-    Paper,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Paper from '@material-ui/core/Paper';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { withStyles } from '@material-ui/core/styles';
+
 import UserDAO from '../../api/UserDAO.js';
 import User from '../../api/User.js';
 
@@ -91,9 +90,7 @@ class LoginForm extends React.Component {
                         loading: false,
                     });
 
-                    this.props.onLogin(
-                        new User(this.state.username, token)
-                    );
+                    this.props.onLogin(new User(this.state.username, token));
                 })
                 .catch((err) => {
                     if (err.statusCode && err.statusCode === 400) {

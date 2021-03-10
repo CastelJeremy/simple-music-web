@@ -1,11 +1,11 @@
 import React from 'react';
-import { Dialog } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
 
+import AlbumDAO from '../../api/AlbumDAO.js';
 import AlbumsNav from './AlbumsNav.jsx';
 import AlbumsList from './AlbumsList.jsx';
 import AlbumsConfirm from './AlbumsConfirm.jsx';
 import AlbumsForm from './AlbumsForm.jsx';
-import AlbumDAO from '../../api/AlbumDAO.js';
 
 class Albums extends React.Component {
     constructor(props) {

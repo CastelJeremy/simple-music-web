@@ -1,5 +1,6 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
+
 import SongsListItem from './SongsListItem.jsx';
 
 const styles = (theme) => ({
