@@ -19,6 +19,7 @@ class Albums extends React.Component {
         };
 
         this.toggleDialog = this.toggleDialog.bind(this);
+        this.handleCreate = this.handleCreate.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.refreshAlbums = this.refreshAlbums.bind(this);
@@ -29,6 +30,14 @@ class Albums extends React.Component {
             dialogOpen: !this.state.dialogOpen,
             dialogType: dialogType,
         });
+    }
+
+    handleCreate() {
+        this.setState({
+            album: null,
+        });
+
+        this.toggleDialog('form');
     }
 
     handleEdit(album) {
@@ -77,7 +86,7 @@ class Albums extends React.Component {
             <React.Fragment>
                 <AlbumsNav
                     onLogout={this.props.onLogout}
-                    onCreate={() => this.toggleDialog('form')}
+                    onCreate={this.handleCreate}
                 />
 
                 <AlbumsList

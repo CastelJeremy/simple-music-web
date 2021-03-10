@@ -22,6 +22,7 @@ class Songs extends React.Component {
 
         this.toggleDialog = this.toggleDialog.bind(this);
         this.refreshSongs = this.refreshSongs.bind(this);
+        this.handleCreate = this.handleCreate.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
@@ -31,6 +32,14 @@ class Songs extends React.Component {
             dialogOpen: !this.state.dialogOpen,
             dialogType: type,
         });
+    }
+
+    handleCreate() {
+        this.setState({
+            song: null,
+        });
+
+        this.toggleDialog('form');
     }
 
     handleEdit(song) {
@@ -103,7 +112,7 @@ class Songs extends React.Component {
                 <SongsNav
                     album={this.state.album}
                     onLogout={this.props.onLogout}
-                    onCreate={() => this.toggleDialog('form')}
+                    onCreate={this.handleCreate}
                 />
 
                 <SongsList
