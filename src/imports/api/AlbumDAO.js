@@ -27,10 +27,42 @@ class AlbumDAO {
         }
     }
 
+    async post(token, album) {
+        const response = await request('albums', {
+            method: 'POST',
+            token: token,
+            data: album.toObject(),
+        });
+
+        const data = await response.json();
+
+        if (data.statusCode) {
+            throw data;
+        } else {
+            return new Album(data.id, data.name, data.author);
+        }
+    }
+
     async get(token, albumId) {
         const response = await request(`albums/${albumId}`, {
             method: 'GET',
             token: token,
+        });
+
+        const data = await response.json();
+
+        if (data.statusCode) {
+            throw data;
+        } else {
+            return new Album(data.id, data.name, data.author);
+        }
+    }
+
+    async put(token, album) {
+        const response = await request(`albums/${album.getId()}`, {
+            method: 'PUT',
+            token: token,
+            data: album.toObject(),
         });
 
         const data = await response.json();

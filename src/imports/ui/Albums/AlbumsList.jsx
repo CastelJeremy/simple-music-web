@@ -22,6 +22,7 @@ class AlbumsList extends React.Component {
                     <AlbumsListItem
                         album={album}
                         key={album.getId()}
+                        onEdit={this.props.onEdit}
                         onDelete={this.props.onDelete}
                     />
                 ))}

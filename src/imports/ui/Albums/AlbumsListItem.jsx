@@ -54,6 +54,11 @@ class AlbumsListItem extends React.Component {
 
                 <div>
                     <IconButton
+                        onClick={() => this.props.onEdit(this.props.album)}
+                    >
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton
                         onClick={() => this.props.onDelete(this.props.album)}
                     >
                         <DeleteIcon />
